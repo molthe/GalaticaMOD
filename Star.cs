@@ -11,24 +11,45 @@ namespace GalaticaMOD
     public class Star : SpaceObjects
     {
         // property Temperature (for the enum StarType)
-        public Startype Temperature { get; set; }
+        public float temperature { get; }
+        public Startype startype { get; set; }
+
+        public float positionX { get; set; }
+        public float positionY { get; set; }
 
         // list of Planets
         List<Planet> planetList = new List<Planet>();
 
+        public Star() { }
 
-        Star sun = new Star()
+        public Star(int x, int y, Startype startype, float temperature)
         {
-            Id = 1,
-            Name = "Sun",
-            //    Type = Enum.GetName(typeof(Startype.White)),
-            //               SpaceObjects.NestedPosition =   NestedPosition()
-            //{
-            //    Get = (0, 0);
-            //    return Get();
-            //}
-            //Temperature = 5500)
-        };
+            this.temperature = temperature;
+            this.positionX = x;
+            this.positionY = y;
+            this.startype = startype;
+        }
+
+        public int metode()
+        {
+            return 7;
+        }
+
+        public override string ToString()
+        {
+            return $"Temperature = {temperature}, PositionX = {positionX}, PositionY = {positionY}, Startype is {startype}...";
+        }
+        //public class Position
+        //{
+        //    public int x { get; set; }
+        //    public int y { get; set; }
+
+        //    // overrides Position and returns the values (x,y)
+        //    public override string ToString()
+        //    {
+        //        return "(" + x + "," + y + ")";
+        //    }
+        //}
 
     }
 }
