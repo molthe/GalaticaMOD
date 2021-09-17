@@ -7,23 +7,50 @@ using System.Threading.Tasks;
 namespace GalaticaMOD
 {
     // The class inherits SpaceObjects
-    class Planet : SpaceObjects
+    public class Planet : SpaceObjects
     {
         // properties for diameter, rotation period, revolutionperiod
-        public double DiameterInM { get; set; }
-        public double RotationPeriodHours { get; set; }
-        public double RevolutionPeriodDays { get; set; }
-        // list of moon
-        List<string> Moon = new List<string>();
+        public string planetName { get; set; }
+        public PlanetType planetType { get; set; }
+        public float positionX { get; set; }
+        public float positionY { get; set; }
+        public float DiameterInM { get; set; }
+        public float RotationPeriodHours { get; set; }
+        public float RevolutionPeriodDays { get; set; }
+        public double DistanceToTheSun { get; set; }
 
-        // Distance calculates the distance to Star using the parameters x1, x2, y1, y2
-        // x1, y1 is the planetPosition, x2, y2 is the coordinates for the Star
-        public double Distance(double x1, double x2, double y1, double y2)
+        // define what is in the planet
+        public Planet() { }
+        public Planet(string planetName, PlanetType planetType, int x, int y, float DiameterInM, float RotationPeriodHours, float RevolutionPeriodDays)
         {
-            double newX = x2 - x1, newY = y2 - y1;
+            this.planetName = planetName;
+            this.planetType = planetType;
+            this.positionX = x;
+            this.positionY = y;
+            this.DiameterInM = DiameterInM;
+            this.RotationPeriodHours = RotationPeriodHours;
+            this.RevolutionPeriodDays = RevolutionPeriodDays;
+            this.DistanceToTheSun = Distance(x, y);
 
-            double distance = Math.Sqrt(Math.Pow(Convert.ToDouble(newX), 2) + Math.Pow(Convert.ToDouble(newY), 2));
-            return distance;
+            // Distance calculates the distance to the sun using the parameters x, y
+            // the sun has coordinates 0,0
+            double Distance(int x, int y)
+            {
+                double newX = Convert.ToDouble(x) - 0, newY = Convert.ToDouble(y) - 0;
+                double distance = Math.Sqrt(Math.Pow((newX), 2) + Math.Pow((newY), 2));
+                return distance;
+            }
         }
+        // override so we can return the information
+        public override string ToString()
+        {
+            // return name, type, distance to the sun, moons
+            return $"Name: {planetName} \n" +
+                $"Planettype: {planetType}\n" +
+                $"Distance to the sun: {DistanceToTheSun:N2}\n\n";
+        }
+
+        // list of moon
+        List<string> MoonList = new List<string>();
     }
 }
